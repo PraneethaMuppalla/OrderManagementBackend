@@ -2,7 +2,7 @@ import { createClient } from 'redis';
 import { config } from './index';
 
 const redisClient = createClient({
-  url: `redis://${config.redis.host}:${config.redis.port}`,
+  url: config.redis.url || `redis://${config.redis.host}:${config.redis.port}`,
 });
 
 redisClient.on('error', (err) => console.log('Redis Client Error:', err.message));
