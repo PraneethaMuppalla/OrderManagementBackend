@@ -17,6 +17,9 @@ beforeAll(async () => {
     logging: false,
   });
 
+  // Reset module registry so mocks take effect even if modules were cached
+  vi.resetModules();
+
   vi.doMock('../../src/config/database', () => ({
     default: testSequelize,
     connectDB: vi.fn(),
@@ -33,6 +36,7 @@ beforeAll(async () => {
     initSocket: vi.fn(),
   }));
 
+  // Dynamic imports MUST come after vi.resetModules() + vi.doMock()
   const supertest = await import('supertest');
   request = supertest.default;
 

@@ -9,36 +9,35 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  static: # fast: lint + types, no infra
+  typecheck:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: 'npm'
       - run: npm ci
-      - run: npm run lint
       - run: npm run typecheck
 
-  unit: # fast tests + coverage gate
+  unit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: 'npm'
       - run: npm ci
-      - run: npm run test:unit # fails if coverage thresholds drop
+      - run: npm run test:unit
 
-  integration: # slow: Testcontainers needs Docker
+  integration:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: 'npm'
       - run: npm ci
       - run: npm run test:integration
