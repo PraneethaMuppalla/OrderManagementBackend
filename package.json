@@ -11,6 +11,7 @@
     "migrate:undo": "npx sequelize-cli db:migrate:undo",
     "migrate:undo:all": "npx sequelize-cli db:migrate:undo:all",
     "seed": "npx sequelize-cli db:seed:all",
+    "typecheck": "tsc --noEmit",
     "seed:undo": "npx sequelize-cli db:seed:undo:all",
     "test": "vitest run",
     "test:unit": "vitest run tests/unit",
